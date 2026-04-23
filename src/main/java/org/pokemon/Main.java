@@ -10,8 +10,7 @@ import javax.imageio.ImageIO;
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
 
-
-        JFrame frame = new JFrame("Minha Pokédex");
+        JFrame frame = new JFrame("TechDex");
         frame.setSize(500, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
@@ -36,6 +35,7 @@ public class Main {
         JButton procurar = new JButton("Buscar Pokémon");
         JLabel labelFoto = new JLabel();
         JLabel labelNome = new JLabel("Nome: ---");
+        JLabel labelCategoria = new JLabel("Categoria: ---");
         JLabel labelId = new JLabel("ID: ---");
         JLabel labelTipos = new JLabel("Tipos: ---");
         JLabel labelHabilidades = new JLabel("Habilidades: ---");
@@ -44,6 +44,7 @@ public class Main {
         procurar.setAlignmentX(Component.CENTER_ALIGNMENT);
         labelFoto.setAlignmentX(Component.CENTER_ALIGNMENT);
         labelNome.setAlignmentX(Component.CENTER_ALIGNMENT);
+        labelCategoria.setAlignmentX(Component.CENTER_ALIGNMENT);
         labelId.setAlignmentX(Component.CENTER_ALIGNMENT);
         labelTipos.setAlignmentX(Component.CENTER_ALIGNMENT);
         labelHabilidades.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -55,9 +56,16 @@ public class Main {
                 PokemonInfos meuPokemon = ApiServico.FormatandoApi(pokemonEscolhido);
 
                 labelNome.setText("Nome: " + meuPokemon.getName().toUpperCase());
+                labelCategoria.setText("Categoria: " + meuPokemon.getCategoria().get(0).toUpperCase());
                 labelId.setText("ID: #" + meuPokemon.getId());
-                labelTipos.setText("Tipos: " + meuPokemon.getTipos());
-                labelHabilidades.setText("Habilidades: " + meuPokemon.getHabilidadesNome());
+                for(int i = 0; i < meuPokemon.getTipos().size(); i++){
+                    String types = String.join(", ", meuPokemon.getTipos());
+                    labelTipos.setText("Tipos: " + types.toUpperCase());
+                }
+                for(int i = 0; i < meuPokemon.getHabilidadesNome().size(); i++){
+                    String ability = String.join(", ", meuPokemon.getHabilidadesNome());
+                    labelHabilidades.setText("Habilidades: " + ability.toUpperCase());
+                }
 
                 URL urlDaImagem = new URL(meuPokemon.getFoto());
                 Image imagemBaixada = ImageIO.read(urlDaImagem);
@@ -78,6 +86,7 @@ public class Main {
         caixaCentral.add(Box.createVerticalStrut(15));
         caixaCentral.add(labelId);
         caixaCentral.add(labelNome);
+        caixaCentral.add(labelCategoria);
         caixaCentral.add(labelTipos);
         caixaCentral.add(labelHabilidades);
 

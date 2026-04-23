@@ -32,7 +32,7 @@ public class ApiServico {
 
     public static List<String> ChamadoApiPokemonLista() throws IOException, InterruptedException {
         var cliente = HttpClient.newHttpClient();
-        var requisicao = HttpRequest.newBuilder(URI.create("https://pokeapi.co/api/v2/pokemon?limit=2000")).build();
+        var requisicao = HttpRequest.newBuilder(URI.create("https://pokeapi.co/api/v2/pokemon-species?limit=1100")).build();
 
         var response = cliente.send(requisicao, HttpResponse.BodyHandlers.ofString());
         var api = response.body();
@@ -43,10 +43,13 @@ public class ApiServico {
         List<String> escolhas = new ArrayList<>();
 
         for (int i = 0; i < results.size(); i++) {
+            // Entra na caixa grande do Pokémon atual da lista
             JsonObject item = results.get(i).getAsJsonObject();
 
+            // Puxa o "name" direto como texto! (Sem criar outro JsonObject)
             String escolha = item.get("name").getAsString();
 
+            // Truquezinho extra: Deixar a primeira letra maiúscula para a ComboBox ficar bonita
             String escolhaFormatada = escolha.substring(0, 1).toUpperCase() + escolha.substring(1);
 
             escolhas.add(escolhaFormatada);
@@ -90,7 +93,9 @@ public class ApiServico {
 
             String idioma = item.getAsJsonObject("language").get("name").getAsString();
 
+            // Se o idioma for "en" (Inglês), nós guardamos o genus!
             if (idioma.equals("en")) {
+                // Aqui "genus" é pego direto como String, pois não é um objeto.
                 String textoCategoria = item.get("genus").getAsString();
                 categoria.add(textoCategoria);
             }
@@ -106,6 +111,6 @@ public class ApiServico {
             String nomeHabilidade = ability.get("name").getAsString();
             habilidadesNome.add(nomeHabilidade);
         }
-        return new PokemonInfos(nome, habilidadesNome, tipos, id, categoria, foto);
+        return new PokemonInfos(nome, habilidadesNome, habilidadesBruto, tipos, id, categoria, foto);
     }
 }
