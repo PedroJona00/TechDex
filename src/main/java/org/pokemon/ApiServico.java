@@ -43,13 +43,10 @@ public class ApiServico {
         List<String> escolhas = new ArrayList<>();
 
         for (int i = 0; i < results.size(); i++) {
-            // Entra na caixa grande do Pokémon atual da lista
             JsonObject item = results.get(i).getAsJsonObject();
 
-            // Puxa o "name" direto como texto! (Sem criar outro JsonObject)
             String escolha = item.get("name").getAsString();
 
-            // Truquezinho extra: Deixar a primeira letra maiúscula para a ComboBox ficar bonita
             String escolhaFormatada = escolha.substring(0, 1).toUpperCase() + escolha.substring(1);
 
             escolhas.add(escolhaFormatada);
@@ -59,8 +56,22 @@ public class ApiServico {
 
     public static PokemonInfos FormatandoApi(String pokemonEscolhido) throws IOException, InterruptedException {
         Gson gson = new Gson();
+        String pokemonMinusculo = pokemonEscolhido.toLowerCase();
+        JsonObject apiSpecies = gson.fromJson(ChamadoApiPokemonSpecies(pokemonEscolhido), JsonObject.class);
+        JsonArray variaties = apiSpecies.getAsJsonArray("varieties");
+        String nomeFormaDefault = pokemonMinusculo;
+        for (int i = 0;i < variaties.size(); i++){
+            JsonObject item = variaties.get(i).getAsJsonObject();
+            boolean isDefault = item.get("is_default").getAsBoolean();
 
-        JsonObject jsonPokemon = gson.fromJson(ChamadoApiPokemon(pokemonEscolhido), JsonObject.class);
+            if (isDefault){
+                JsonObject pokemonDaLista = item.getAsJsonObject("pokemon");
+                nomeFormaDefault = pokemonDaLista.get("name").getAsString();
+                break;
+            }
+        }
+
+        JsonObject jsonPokemon = gson.fromJson(ChamadoApiPokemon(nomeFormaDefault), JsonObject.class);
         JsonObject jsonPokemonSpecies = gson.fromJson(ChamadoApiPokemonSpecies(pokemonEscolhido), JsonObject.class);
         JsonArray genera = jsonPokemonSpecies.getAsJsonArray("genera");
         JsonArray habilidadesBruto = jsonPokemon.getAsJsonArray("abilities");
@@ -93,9 +104,7 @@ public class ApiServico {
 
             String idioma = item.getAsJsonObject("language").get("name").getAsString();
 
-            // Se o idioma for "en" (Inglês), nós guardamos o genus!
             if (idioma.equals("en")) {
-                // Aqui "genus" é pego direto como String, pois não é um objeto.
                 String textoCategoria = item.get("genus").getAsString();
                 categoria.add(textoCategoria);
             }
