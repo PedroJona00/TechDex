@@ -4,7 +4,7 @@
 
 ---
 
-### **Objetivo do Projeto**
+### Objetivo do Projeto
 
 O **TechDex** foi desenvolvido com o objetivo de colocar em prática meus conhecimentos de:
 
@@ -15,7 +15,7 @@ A aplicação permite buscar qualquer Pokémon pelo nome (a partir de uma lista 
 
 ---
 
-### **Funcionalidades**
+### Funcionalidades
 
 - Lista completa com mais de 1.000 Pokémons carregada direto da PokéAPI
 - Busca de Pokémon por nome via dropdown
@@ -25,7 +25,7 @@ A aplicação permite buscar qualquer Pokémon pelo nome (a partir de uma lista 
 
 ---
 
-### **Estrutura do Projeto**
+### Estrutura do Projeto
 
 ```
 TechDex/
@@ -37,8 +37,15 @@ TechDex/
 ```
 
 ---
+### Interface do Projeto
 
-### **Tecnologias e Dependências**
+A interface final do projeto é simples e funcional:
+
+<img style="width: 50%; height: auto;" alt="InterfaceTechDex" src="image/Interface.png"/>
+
+---
+
+### Tecnologias e Dependências
 
 | Tecnologia | Uso |
 |---|---|
@@ -51,13 +58,13 @@ TechDex/
 
 ---
 
-### **Trechos Importantes do Código**
+### Trechos Importantes do Código
 
 ### 1. Requisição HTTP para a PokéAPI
 
 Usando o `HttpClient` nativo do Java para fazer chamadas GET à API:
 
-<image alt="ChamadoApiPokemon" src="image/ChamadoApiPokemon.jpg"></image>
+<img alt="ChamadoApiPokemon" src="image/ChamadoApiPokemon.jpg"/>
 
 ---
 
@@ -65,7 +72,7 @@ Usando o `HttpClient` nativo do Java para fazer chamadas GET à API:
 
 Busca mais de 1.000 nomes de uma vez e os formata para exibição:
 
-<image alt="ChamadoApiPokemon" src="image/ChamadoApiPokemonLista.jpg"></image>
+<img alt="ChamadoApiPokemonLista" src="image/ChamadoApiPokemonLista.jpg"/>
 
 ---
 
@@ -73,7 +80,7 @@ Busca mais de 1.000 nomes de uma vez e os formata para exibição:
 
 Combina dados de dois endpoints (`/pokemon` e `/pokemon-species`) para montar o objeto completo, lidando com variantes de forma do Pokémon:
 
-<image alt="ChamadoApiPokemon" src="image/FormatandoApi.jpg"></image>
+<img alt="FormatandoApi" src="image/FormatandoApi.jpg"/>
 
 ---
 
@@ -81,7 +88,7 @@ Combina dados de dois endpoints (`/pokemon` e `/pokemon-species`) para montar o 
 
 Montagem do `JFrame` com layout, componentes e centralização na tela:
 
-<image alt="ChamadoApiPokemon" src="image/CriacaoJanela.jpg"></image>
+<img alt="CriacaoJanela" src="image/CriacaoJanela.jpg"/>
 
 ---
 
@@ -89,11 +96,11 @@ Montagem do `JFrame` com layout, componentes e centralização na tela:
 
 Ao clicar em "Buscar Pokémon", os dados são buscados e a imagem é baixada e redimensionada dinamicamente:
 
-<image alt="ChamadoApiPokemon" src="image/ProcurarPokemon.jpg"></image>
+<img alt="ProcurarPokemon" src="image/ProcurarPokemon.jpg"/>
 
 ---
 
-### **Como Executar**
+### Como Executar
 
 ### Pelo executável
 Baixe o arquivo `TechDex-1.0.exe` disponível no repositório e execute diretamente (Windows).
@@ -115,13 +122,4 @@ mvn compile exec:java
 
 ---
 
-### **O que aprendi com esse projeto**
-
-- Como realizar requisições HTTP com o `HttpClient` nativo do Java (sem bibliotecas externas para isso).
-- Como fazer o parse de respostas JSON com **Gson**, navegando por objetos e arrays aninhados.
-- Como combinar múltiplos endpoints de uma API para montar um objeto de dados completo.
-- Como construir uma interface gráfica desktop com **Java Swing**: layouts, componentes, eventos e etc.
-
----
-
-*Projeto desenvolvido por [PedroJona00](https://github.com/PedroJona00)*
+*Projeto desenvolvido por [Pedro Jonatha](https://github.com/PedroJona00)*
